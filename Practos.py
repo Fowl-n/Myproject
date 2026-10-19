@@ -1,4 +1,3 @@
-
 a = float(input("Введите первое число: "))
 b = float(input("Введите второе число: "))
 c = input(
@@ -14,8 +13,11 @@ c = input(
 d = ['+', '-', '*', '/', '//', '%', '**']
 if c in d:
     print("Такая операция есть")
+    
+        
 if c is None:
     print("Операция не выбрана")
+
 if c == "+":
     print(round(a+b))
 elif c == "-":
@@ -30,5 +32,17 @@ elif c == "%" and b != 0:
     print(round(a%b))
 elif c == "**":
     print(round(a**b))
+elif a == b:
+    print("Переменные равны")
+elif a != b:
+    print("Переменные не равны")
+elif a < b:
+    print("a < b")
+elif a > b:
+    print("a > b")
+elif a <= b:
+    print("a <= b")
+elif a >= b:
+    print("a >= b")
 else:
     print("Ошибка")
