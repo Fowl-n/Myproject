@@ -12,9 +12,9 @@ def print_slow(text):
 
 def show_inventory(inventory):
     if not inventory:
-        print("🎒 Ваш инвентарь пуст.")
+        print("Ваш инвентарь пуст.")
     else:
-        print(f"🎒 В инвентаре: {', '.join(inventory)}")
+        print(f"В инвентаре: {', '.join(inventory)}")
 
 
 def check_item(inventory, item):
@@ -35,7 +35,7 @@ def level_one(inventory):
     found_items = set()
 
     while True:
-        print(f"\n📍 Локация: {current_loc.capitalize()}")
+        print(f"\nЛокация: {current_loc.capitalize()}")
         print(locations[current_loc])
 
         if current_loc == "куст" and not check_item(inventory, "палка") and "палка" not in found_items:
