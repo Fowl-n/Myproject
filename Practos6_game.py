@@ -58,8 +58,12 @@ def level_one(inventory):
                 if not check_item(inventory, "паутина"):
                     print_slow("На ветке есть паутина, но она порвана. Нужно сплести новую.")
                     print_slow("Для этого нужна палка.")
+                    if not check_item(inventory, "палка"):
+                        print_slow("Вы не сможете спуститься, так как внизу все заполонили красные муравьи.")
+                        print_slow("Поблизости нет палок. Это конец.")
+                        return False
                 else:
-                    print_slow("Вы перебираетесь по паутине на другое дерево и проходите уровень!")
+                    print_slow("Вы перебираетесь по паутине на дерево и проходите уровень!")
                     return True
         elif command == "взять":
             if current_loc == "куст" and not check_item(inventory, "палка") and "палка" not in found_items:
@@ -107,9 +111,8 @@ def level_two(inventory):
         elif command == "инвентарь":
             show_inventory(inventory)
         elif command == "осмотреться":
-            if not check_item(inventory, "светлячок") and "светлячок" not in solved_riddles:
-                print_slow("Вы видите светлячка, летающего неподалеку. Он может дать свет.")
             if not check_item(inventory, "светлячок"):
+                print_slow("Вы видите светлячка, летающего неподалеку. Он может дать свет.")
                 print_slow("В темноте сверкают глаза паука.")
             else:
                 print_slow("Светлячок освещает путь. Паук боится света!")
@@ -124,12 +127,12 @@ def level_two(inventory):
                 print_slow("Светлячок шепчет вам загадку: 'Кто всю жизнь летает, но никогда не устает?'")
                 ans = input("Ответ: ").lower().strip()
                 if ans == riddle_answer:
-                    print_slow("Верно! Светлячок соглашается помочь вам.")
+                    print_slow("Верно! Светлячок соглашается помочь вам и вы его отпускаете (он летает вокруг вас и освещает небольшую область).")
                     solved_riddles.add(riddle_answer)
                 else:
                     print_slow("Неверно. Светлячок грустнеет.")
             else:
-                print_slow("Вам не с кем говорить в темноте.")
+                print_slow("Вам не с кем говорить.")
         elif command == "бежать":
             if check_item(inventory, "светлячок"):
                 print_slow("Вы бежите на свет светлячка и выбираетесь из ловушки!")
@@ -137,7 +140,9 @@ def level_two(inventory):
                 return True
             else:
                 print_slow("Вы пытаетесь бежать в темноте, но натыкаетесь на паутину и запутываетесь.")
-                print_slow("Вам нужно больше света.")
+                print_slow("Вы замечаете огромного паука, который пришел посмотреть, что попалось в его паутину.")
+                print_slow("Он видет вас и бесжалостно съедает.")
+                return False
         else:
             print_slow("Неизвестная команда.")
 
@@ -153,21 +158,24 @@ def level_three(inventory):
         print_slow(f"Доступные действия: {', '.join(commands)}")
         command = input("Ваш выбор: ").lower().strip()
 
-        if command == "выход":
+        if command == commands[4]:
             return False
-        elif command == "инвентарь":
+        elif command == commands[3]:
             show_inventory(inventory)
-        elif command == "прыгнуть":
+        elif command == commands[0]:
             print_slow("Вы прыгаете, но расстояние слишком велико. Вы падаете в воду и промокаете.")
-        elif command == "плыть":
+        elif command == commands[1]:
             print_slow("Вы плывете, но вода холодная. Вы теряете силы.")
-        elif command == "мост":
+        elif command == commands[2]:
             if check_item(inventory, "лист") and check_item(inventory, "палка"):
                 print_slow("Вы используете лист и палку, чтобы построить импровизированный мост!")
                 print_slow("Вы перебираетесь через лужу и находите свою подругу!")
                 return True
             else:
                 print_slow("У вас нет нужных материалов для моста (нужны лист и палка).")
+                print_slow("Вы понимаете, что это конец.")
+                return False
+
         else:
             print_slow("Неизвестная команда.")
 
